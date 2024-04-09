@@ -143,7 +143,7 @@ public class EmpleadoServices
             using (MySqlConnection connection = connector.ConnectToDatabase())
             {
                 connection.Open();
-                using (MySqlCommand command = new MySqlCommand($"SELECT EMPLEADOS.nombre, EMPLEADOS.documento, AREAS.nombre FROM EMPLEADOS JOIN AREAS ON EMPLEADOS.area_id = AREAS.id WHERE AREAS.Nombre = @Area", connection))
+                using (MySqlCommand command = new MySqlCommand($"SELECT EMPLEADOS.nombre, EMPLEADOS.documento, AREAS.nombre as AREANOM FROM EMPLEADOS JOIN AREAS ON EMPLEADOS.area_id = AREAS.id WHERE AREAS.Nombre = @Area", connection))
                 {
                     command.Parameters.AddWithValue("@Area", area);
                     {
@@ -155,7 +155,7 @@ public class EmpleadoServices
                                 {
                                     Nombre = reader["nombre"].ToString(),
                                     Documento = reader["documento"].ToString(),
-                                    Area = reader["nombre"].ToString(),
+                                    Area = reader["AREANOM"].ToString(),
                                 };
 
                                 empleadoAreaDTOs.Add(empleadoArea);
